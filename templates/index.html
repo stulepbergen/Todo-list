@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Todo List</title>
+        <style>
+            *{
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+                font-family: sans-serif;
+            }
+
+            body{
+                height: 35%;
+                width: 440px;
+                margin: auto;
+                top: 50%;
+                left: 0;
+                right: 0;
+                padding: 30px 0;
+                border-radius: 8px;
+                background: #274755;
+            }
+
+            #newtask{
+                padding: 30px 15px;
+                position: relative;
+                background: #191919;
+                border-radius: 5px;
+                box-shadow: 0 15px 30px rgb(0, 0, 0, 0.5);
+            }
+
+            #todo-title{
+                margin: 12px;
+                color: white;
+                text-transform: uppercase;
+                font-weight: 800;
+                text-align: center;
+                font-size: x-large;
+            }
+
+            #newtask input{
+                border-radius: 24px;
+                background: none;
+                width: 70%;
+                height: 45px;
+                font-size: 15px;
+                border: 2px solid #3498db;
+                padding: 12px;
+                color: white;
+                font-weight: 500;
+                position: relative;
+            }
+
+            #newtask input:focus{
+                outline: none;
+                border-color: #2ecc21;
+            }
+
+            #newtask button{
+                border: none;
+                position: relative;
+                float: right;
+                width: 63px;
+                height: 45px;
+                border-radius: 24px;
+                font-weight: 500;
+                font-size: 16px;
+                background: #55be4c;
+                color: white;
+                outline: none;
+                cursor: pointer;
+            }
+
+            #newtask button:hover{
+                background: #2ecc21;
+            }
+
+            #tasks{
+                width: 100%;
+                position: relative;
+                margin-top: 40px;
+                background: #191919;
+                padding: 30px 20px;
+                border-radius: 5px;
+                box-shadow: 0 15px 30px rgb(0, 0, 0, 0.5);
+            }
+
+            #tasks button{
+                border: none;
+                background: #55be4c;
+                height: 25px;
+                width: 63px;
+                color: white;
+                border-radius: 24px;
+                cursor: pointer;
+                float: right;
+            }
+
+            .completed, .notcompleted{
+                margin: auto;
+                padding-bottom: 10px;
+                color: white;
+            }
+
+            .completed{
+                text-decoration: line-through;
+                opacity: 0.7;
+            }
+
+            .notcompleted a{
+                text-decoration: none;
+                color: white;
+            }
+
+            .notcompleted a:hover{
+                text-decoration: none;
+            }
+
+            #tasks button:hover{
+                background: #2ecc21;
+            }
+
+            #tasks h3{
+                color: white;
+                padding-bottom: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="todo-title">
+            Todo List
+        </div>
+        <div id="newtask">
+            <form action="/add" method="post">
+                <input type="text" name="item" placeholder="Add a task">
+                <button type="submit">Add</button>
+            </form>
+        </div>
+        <div id="tasks">
+            <h3>Task</h3>
+            <div>
+                {{ range .Todos }}
+                    {{ if .Done }}
+                        <div class="completed">
+                            {{ .Item }}
+                            <a href = "/delete/{{ .Id }}"><button id="delete">X</button></a>
+                        </div>
+                    {{ else }}
+                        <div class="notcompleted">
+                            <a href = "/done/{{ .Id }}">{{ .Item }}</a>
+                            <a href = "/delete/{{ .Id }}"><button id="delete">X</button></a>
+                        </div>
+                    {{ end }}
+                {{ end }}
+            </div>  
+        </div>
+    </body>
+</html>
